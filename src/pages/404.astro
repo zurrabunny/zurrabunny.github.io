@@ -1,0 +1,24 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+const t = useTranslations(Astro.currentLocale as Lang);
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const locale = Astro.currentLocale as Lang;
+
+
+---
+
+<Layout>
+  <body>
+	<button id="play-sound"><h1>404.. What the Sigma?</h1></button>
+	<br><br>whatever you're looking for, its not here!
+  </body>
+</Layout>
+
+<script>
+    document.getElementById('play-sound').addEventListener('click', function() {
+      const sound = new Audio('/src/content/blog/en/sigma.mp3'); // Path to your sound file
+      sound.play(); // Play the sound
+    });
+  </script>

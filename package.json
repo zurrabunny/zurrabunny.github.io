@@ -1,0 +1,29 @@
+{
+  "name": "c-users-admin-desktop-portfolio-website-work-website",
+  "description": "A starter for Astro with i18n support",
+  "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://astro-i18n-starter.pages.dev/",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/rss": "^4.0.6",
+    "@astrojs/sitemap": "^3.1.5",
+    "acorn": "^8.14.0",
+    "astro": "^4.16.12",
+    "astro-plyr": "^1.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  }
+}

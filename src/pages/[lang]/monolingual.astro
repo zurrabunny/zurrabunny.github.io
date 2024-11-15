@@ -1,0 +1,53 @@
+--- 
+import NotTranslateCaution from "@/components/i18n/NotTranslateCaution.astro";
+import { localeParams } from "@/i18n";
+import PageHeadline from "@/components/PageHeadline.astro";
+import Layout from "@/layouts/Base.astro";
+
+const title = "";
+export const getStaticPaths = () => localeParams;
+---
+
+<Layout {title}>
+  <PageHeadline {title} />
+  <div class="image-container">
+  <img src="/src/content/blog/en/placeholders.gif" alt="Description of image" />
+</div>
+
+<style>
+  .image-container img {
+    display: block;
+    margin: 0 auto; /* Centers the image horizontally */
+	margin-bottom: 70px
+  }
+</style>
+
+    <p>Here is a sample page when only one language is set.</p>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </div>
+</Layout>
+
+<style>
+  /* Centering the content */
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;  /* Stack items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    height: 100vh;           /* Full viewport height */
+    text-align: center;      /* Optional: Center the text */
+  }
+
+  p {
+    max-width: 800px; /* Optional: Limit the width of paragraphs */
+    line-height: 1.6;
+  }
+</style>

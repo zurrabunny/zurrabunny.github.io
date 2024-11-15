@@ -1,0 +1,161 @@
+---
+import LocaleSelect from "@/components/i18n/LocaleSelect.astro";
+import { Image } from "astro:assets";
+import { useTranslations, type Lang } from "@/i18n";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import type { Options, SourceInfo } from '~';
+import Layout from '../layouts/Layout.astro';
+import Component from '~';
+
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+
+const isActive = (path: string) =>
+  getRelativeLocaleUrl(locale, path) === Astro.url.pathname;
+---
+
+<LocaleSelect />
+
+<div class="gif-container">
+  <div class="placeholder-box"></div>
+  <img src="/src/content/blog/en/zurraheader.gif" alt="Centered GIF" class="centered-gif" />
+</div>
+
+<nav class="button-nav">
+  <ul>
+    <li class="en-only">
+      <a href={`/${locale}/`} class={isActive("/") ? "active" : ""}>
+        About
+      </a>
+    </li>
+    <li>
+      <a href={getRelativeLocaleUrl(locale, "/blog")} class={isActive("/blog") ? "active" : ""}>
+        {t({ ja: "ブログ", en: "Works", "zh-cn": "博客", ar: "مدونة" })}
+      </a>
+	 </li>
+	 <li>
+	<!-- Email Button with Icon -->
+  <a href="mailto:azzurraseabunny@gmail.com" class="email-button">
+    <span class="material-icons-sharp">email</span>
+    Contact me here!
+  </a>
+  <li/>
+  </ul>
+</nav>
+
+<style>
+  /* Centering the GIF container */
+  .gif-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  /* Placeholder Box */
+  .placeholder-box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #26211e;
+    z-index: 1;
+  }
+
+  /* Responsive GIF Styling */
+  .centered-gif {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+  }
+
+  /* Hover effects */
+  .centered-gif:hover {
+    filter: brightness(1.2);
+  }
+
+  /* Centering the GIF container */
+.gif-container {
+  position: relative; /* Make it the reference point for absolute positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  max-width: 100%;
+  padding: 20px;
+}
+
+/* Placeholder Box */
+.placeholder-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #26211e;
+  z-index: 1;
+}
+
+/* Responsive GIF Styling */
+.centered-gif {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2; /* Keeps the GIF above the placeholder */
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+/* Hover effects */
+.centered-gif:hover {
+  filter: brightness(1.2);
+}
+
+/* Button Navigation Styling */
+  .button-nav {
+    position: absolute; /* Position buttons in front of the GIF */
+    bottom: 670px; /* Adjust distance from the bottom of the GIF */
+    right: 50px; /* Adjust distance from the right edge */
+    display: flex;
+    gap: var(--sp-m);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 3; /* Ensure buttons are in front */
+  }
+
+  .button-nav ul {
+    display: flex;
+    gap: var(--sp-m);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .button-nav a {
+    font-size: 0.85rem; /* Smaller font size */
+    display: block;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.2em 0.8em; /* Reduced padding */
+    border-radius: 3px; /* Adjusted for a smaller appearance */
+    text-align: center;
+    color: #fff; /* Customize color as needed */
+    background-color: #333; /* Customize background color as needed */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-nav a:hover {
+    background-color: #555; /* Darker color on hover */
+  }
+
+  /* Active Link Styling */
+  .button-nav a.active {
+    background-color: #db381f;
+    color: #fff; /* Ensure text color stands out */
+  }
+</style>

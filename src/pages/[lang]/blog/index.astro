@@ -1,0 +1,110 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import PageHeadline from "@/components/PageHeadline.astro";
+
+const locale = Astro.currentLocale as Lang;
+const t = useTranslations(locale);
+
+const posts = (await getCollection("blog"))
+  .filter((post) => post.slug.includes(locale)) // Match locale anywhere in the slug
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+
+const title = t({
+});
+
+export const getStaticPaths = () =>
+  Object.keys(LOCALES).map((lang) => ({
+    params: { lang },
+  }));
+---
+
+<Layout {title}>
+  <PageHeadline {title} />
+  
+  <div class="image-container">
+    <img src="/src/content/blog/en/placeholders.gif" alt="Description of image" />
+  </div>
+
+  <ul class="post-grid">
+    {
+      posts.map((post) => {
+        const [, ...slug] = post.slug.split("/");
+        return (
+          <li>
+            <a href={`/${locale}/blog/${slug.join("/")}/`}>
+              {post.data.cover && (
+                <Image src={post.data.cover} alt={post.data.title} />
+              )}
+              <h2>{post.data.title}</h2>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Layout>
+
+<style>
+  /* General Paragraph Styling */
+p {
+  margin-block-start: var(--sp-s);
+}
+
+/* Image Container Styling */
+.image-container img {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  margin-top: -20px;
+}
+
+/* Grid Layout for Posts */
+.post-grid {
+  margin-block-start: var(--sp-m);
+  display: grid;
+  gap: var(--sp-s);
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); /* Responsive grid columns */
+  padding: 0;
+  list-style: none;
+}
+
+/* Individual Post Styling */
+.post-grid li {
+  margin-bottom: 1rem;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth backOut effect */
+  overflow: hidden; /* Ensure content doesn't overflow when scaling */
+  position: relative; /* Fixes any stacking issues during hover */
+}
+
+/* Apply backOut effect on hover */
+.post-grid li:hover {
+  transform: scale(1.02) translateY(-5px); /* Slight upward translation for the bounce effect */
+}
+
+/* Post Image Styling */
+.post-grid li img {
+  width: 100%; /* Make images responsive */
+  height: auto;
+  border-radius: 6px;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), 
+              filter 0.4s ease-in-out; /* Added transition for filter (brightness) */
+  transform-origin: center; /* Ensures scaling happens from the center of the image */
+}
+
+/* Apply brightness on hover */
+.post-grid li:hover img {
+  transform: scale(1.001) translateY(5px); /* Keep scaling effect on the image */
+  filter: brightness(1.3); /* Increase brightness by 20% */
+}
+
+/* Post Title Styling */
+.post-grid li h2 {
+  font-size: 1.2rem; /* Optional: Adjust font size */
+  margin-top: 1rem;  /* Adds space between the image and the title */
+}
+
+</style>

@@ -1,0 +1,92 @@
+---
+import { LOCALES, useTranslations, type Lang } from "@/i18n";
+import Layout from "@/layouts/Base.astro";
+const t = useTranslations(Astro.currentLocale as Lang);
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const locale = Astro.currentLocale as Lang;
+
+export const getStaticPaths = () =>
+  Object.keys(LOCALES).map((lang) => ({
+    params: { lang },
+  }));
+---
+
+<Layout>
+  <div class="content-container">
+	
+	<div class="imaging">
+    <img src="/src/content/blog/en/placeholders.gif" alt="Description of image" />
+  </div>
+    <p>
+  <em>
+    <div class="image-container">
+      <img src="/src/content/blog/en/abouts.gif"/>
+    </div>
+    <div class="text-container">
+      <p>
+        {
+          t({
+            en: "Hi! I'm Rohn Maulawin, but you can call me Zurra. I'm a 17-year-old student studying at CIIT Senior High School.",
+          })
+        }
+		<br>
+		<br>
+		{
+          t({
+            en: "I'm creative and a multi-talented animator, illustrator, and storyteller with a strong background in character design, story development, and music production.",
+          })
+        }
+      </p>
+    </div>
+  </em>
+</p>
+
+
+    <p>
+      {
+        t({
+          en: "I'm also experienced in working on both independent and collaborative projects, drawing inspiration from renowned animation studios, films and popular media.",
+        })
+      }
+	  <br>
+	  <br>
+	  {
+		t({
+			en:"i praise myself with frame by frame and smooth animation / storyboards. i also praise my ability to easily conquer steep learning curves"
+		})
+	  }
+    </p>
+  </div>
+</Layout>
+
+<style>
+	
+	.imaging img {
+	  display: block;
+	  margin: 0 auto;
+	  margin-bottom: 50px;
+	  margin-top: -20px;
+	}
+
+  .image-container {
+  display: inline-block;
+  width: 40%; /* Adjust width to your preference */
+  padding-right: 20px; /* Add space between image and text */
+  margin-left: 15px;
+}
+
+.text-container {
+  font-style: normal;
+  display: inline-block;
+  width: 55%; /* Adjust width to your preference */
+  vertical-align: top; /* Align the text to the top */
+}
+
+.image-container img {
+  width: 100%; /* Ensure the image takes the full width of the container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 32px; /* Round the corners */
+}
+
+</style>
